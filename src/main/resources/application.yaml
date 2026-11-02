@@ -1,3 +1,13 @@
 spring:
-  application:
-    name: ticketforge
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ticketforge
+    username: ticketforge
+    password: ticketforge
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-ms: 3600000
