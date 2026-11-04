@@ -19,7 +19,7 @@ public class SecurityConfig{
     SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtFilter) throws Exception{
         http.csrf(csrf -> csrf.disable()).sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).exceptionHandling(e -> e.authenticationEntryPoint(
             new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-        ).authorizeHttpRequests(a -> a.requestMatchers("/api/auth/**").permitAll().requestMatchers(HttpMethod.GET, "/api/events/**").permitAll().requestMatchers("/actuator/health").permitAll().requestMatchers(HttpMethod.POST, "/api/events").hasRole("ADMIN").anyRequest().authenticated()).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        ).authorizeHttpRequests(a -> a.requestMatchers("/api/auth/**").permitAll().requestMatchers("/error").permitAll().requestMatchers(HttpMethod.GET, "/api/events/**").permitAll().requestMatchers("/actuator/health").permitAll().requestMatchers(HttpMethod.POST, "/api/events").hasRole("ADMIN").anyRequest().authenticated()).addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
     @Bean 
