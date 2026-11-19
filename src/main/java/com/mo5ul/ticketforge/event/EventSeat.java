@@ -39,4 +39,12 @@ public class EventSeat{
     public SeatStatus getStatus() {return status;}
     public Long getHeldBy() {return heldBy;}
     public Instant getHoldExpiresAt() {return holdExpiresAt;}
+    public boolean isHoldable(Instant now){
+        return status == SeatStatus.AVAILABLE || (status == SeatStatus.HELD && holdExpiresAt != null && holdExpiresAt.isBefore(now));
+    }
+    public void hold(Long userId, Instant expiresAt){
+        this.status = SeatStatus.HELD;
+        this.heldBy = userId;
+        this.holdExpiresAt = expiresAt;
+    }
 }
