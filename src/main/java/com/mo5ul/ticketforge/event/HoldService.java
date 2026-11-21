@@ -30,4 +30,13 @@ public class HoldService {
         seat.hold(userId, expiresAt);
         return new HoldResponse(seat.getId(), expiresAt);
     }
+    @Transactional 
+    public void confirm(Long eventId, Long seatId, String email){
+        Long userId=users.findByEmail(email).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unknown user")).getId();
+        EventSeat seat = seats.findForUpdate(eventId, seatId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND,"Seat not found"));
+        if (!seat.isHeldBy(userId, Instant.now())){
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "No valid hold for this user");
+        }
+        seat.book();
+    }
 }

@@ -4,6 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
@@ -31,4 +34,10 @@ public class EventController {
                              Authentication auth) {
         return holds.hold(eventId, seatId, auth.getName());
     }
+    @PostMapping("/{eventId}/seats/{seatId}/confirm")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void confirm(@PathVariable Long eventId, @PathVariable Long seatId, Authentication auth){
+        holds.confirm(eventId, seatId, auth.getName());
+    }
+    
 }

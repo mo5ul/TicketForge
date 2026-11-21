@@ -47,4 +47,11 @@ public class EventSeat{
         this.heldBy = userId;
         this.holdExpiresAt = expiresAt;
     }
+    public boolean isHeldBy(Long userId, Instant now){
+        return status == SeatStatus.HELD && userId.equals(heldBy) && holdExpiresAt != null && holdExpiresAt.isAfter(now);
+    }
+    public void book(){
+        this.status=SeatStatus.BOOKED;
+        this.holdExpiresAt=null;
+    }
 }
