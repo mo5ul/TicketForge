@@ -30,6 +30,8 @@ class ConfirmConcurrencyTest{
     @DynamicPropertySource 
     static void props(DynamicPropertyRegistry registry){
         registry.add("app.jwt.secret",()->"dGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQtdGVzdC1zZWNyZXQ=");
+        registry.add("app.razorpay.key-id", () -> "rzp_test_dummy");
+        registry.add("app.razorpay.key-secret", () -> "dummy_secret");
     }
     @Autowired HoldService holdService;
     @Autowired EventRepository events;
